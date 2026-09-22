@@ -29,7 +29,7 @@
   <p id="start-status">Necesitamos acceso a la cámara para la experiencia AR</p>
 </div>
 
-<!-- ============ ESCENA AR ============ -->
+<!-- ============ ESCENA AR (15 trackers / videos) ============ -->
 <div id="ar-container">
   <a-scene
     mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no;"
@@ -39,10 +39,22 @@
     device-orientation-permission-ui="enabled: true"
   >
     <a-assets>
-      <!-- Reemplazá estos src por tus videos reales -->
+      <!-- Reemplazá cada src por tu video real (videos/video1.mp4 ... video15.mp4) -->
       <video id="video0" src="videos/video1.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
       <video id="video1" src="videos/video2.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
       <video id="video2" src="videos/video3.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video3" src="videos/video4.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video4" src="videos/video5.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video5" src="videos/video6.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video6" src="videos/video7.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video7" src="videos/video8.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video8" src="videos/video9.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video9" src="videos/video10.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video10" src="videos/video11.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video11" src="videos/video12.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video12" src="videos/video13.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video13" src="videos/video14.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video14" src="videos/video15.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -61,16 +73,75 @@
     <a-entity mindar-image-target="targetIndex: 2">
       <a-video src="#video2" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
     </a-entity>
+
+    <!-- Target 3: cuadrado plano físico #4 -->
+    <a-entity mindar-image-target="targetIndex: 3">
+      <a-video src="#video3" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 4: cuadrado plano físico #5 -->
+    <a-entity mindar-image-target="targetIndex: 4">
+      <a-video src="#video4" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 5: cuadrado plano físico #6 -->
+    <a-entity mindar-image-target="targetIndex: 5">
+      <a-video src="#video5" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 6: cuadrado plano físico #7 -->
+    <a-entity mindar-image-target="targetIndex: 6">
+      <a-video src="#video6" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 7: cuadrado plano físico #8 -->
+    <a-entity mindar-image-target="targetIndex: 7">
+      <a-video src="#video7" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 8: cuadrado plano físico #9 -->
+    <a-entity mindar-image-target="targetIndex: 8">
+      <a-video src="#video8" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 9: cuadrado plano físico #10 -->
+    <a-entity mindar-image-target="targetIndex: 9">
+      <a-video src="#video9" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 10: cuadrado plano físico #11 -->
+    <a-entity mindar-image-target="targetIndex: 10">
+      <a-video src="#video10" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 11: cuadrado plano físico #12 -->
+    <a-entity mindar-image-target="targetIndex: 11">
+      <a-video src="#video11" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 12: cuadrado plano físico #13 -->
+    <a-entity mindar-image-target="targetIndex: 12">
+      <a-video src="#video12" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 13: cuadrado plano físico #14 -->
+    <a-entity mindar-image-target="targetIndex: 13">
+      <a-video src="#video13" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 14: cuadrado plano físico #15 -->
+    <a-entity mindar-image-target="targetIndex: 14">
+      <a-video src="#video14" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
   </a-scene>
 </div>
 
 <script>
   // ---------- CONFIG: mapea índice de target -> id de <video> ----------
-  const targetVideoIds = ['video0', 'video1', 'video2'];
+  const targetVideoIds = ['video0', 'video1', 'video2', 'video3', 'video4', 'video5', 'video6', 'video7', 'video8', 'video9', 'video10', 'video11', 'video12', 'video13', 'video14'];
 
   const startScreen = document.getElementById('start-screen');
   const startBtn = document.getElementById('start-btn');
-  const startStatus = document.getElementById('start-status');
   const arContainer = document.getElementById('ar-container');
 
   startBtn.addEventListener('click', startAR);
