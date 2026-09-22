@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>AR Multi-Tracker</title>
+
+<!-- A-Frame + MindAR (image tracking) -->
+<script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+<!-- GoatCounter — reemplazá TUSITIO por el subdominio de tu cuenta (https://TUSITIO.goatcounter.com) -->
+<script data-goatcounter="https://TUSITIO.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
+  #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; background: #000; }
+  #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #fff; color: #000; }
+  #start-status { color: #fff; margin-top: 16px; text-align: center; padding: 0 20px; font-size: 14px; }
+  #ar-container { position: fixed; inset: 0; display: none; }
+</style>
+</head>
+<body>
+
+<!-- ============ PANTALLA INICIAL: el visitante ya llegó acá vía QR (el QR apunta directo a esta URL) ============ -->
+<div id="start-screen">
+  <button id="start-btn">Tocá para comenzar</button>
+  <p id="start-status">Necesitamos acceso a la cámara para la experiencia AR</p>
+</div>
+
+<!-- ============ ESCENA AR ============ -->
+<div id="ar-container">
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no;"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: true"
+  >
+    <a-assets>
+      <!-- Reemplazá estos src por tus videos reales -->
+      <video id="video0" src="videos/video1.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video1" src="videos/video2.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video2" src="videos/video3.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+    <!-- Target 0: cuadrado plano físico #1 -->
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video src="#video0" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 1: cuadrado plano físico #2 -->
+    <a-entity mindar-image-target="targetIndex: 1">
+      <a-video src="#video1" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+
+    <!-- Target 2: cuadrado plano físico #3 -->
+    <a-entity mindar-image-target="targetIndex: 2">
+      <a-video src="#video2" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+    </a-entity>
+  </a-scene>
+</div>
+
+<script>
+  // ---------- CONFIG: mapea índice de target -> id de <video> ----------
+  const targetVideoIds = ['video0', 'video1', 'video2'];
+
+  const startScreen = document.getElementById('start-screen');
+  const startBtn = document.getElementById('start-btn');
+  const startStatus = document.getElementById('start-status');
+  const arContainer = document.getElementById('ar-container');
+
+  startBtn.addEventListener('click', startAR);
+
+  function startAR() {
+    startScreen.style.display = 'none';
+    arContainer.style.display = 'block';
+
+    const sceneEl = document.querySelector('a-scene');
+
+    const kickoff = () => {
+      const arSystem = sceneEl.systems['mindar-image-system'];
+      arSystem.start(); // arranca la cámara de MindAR y el tracking
+
+      // Métrica: sesión AR iniciada (equivale a "llegó y activó la cámara")
+      if (window.goatcounter && goatcounter.count) {
+        goatcounter.count({ path: 'ar-session-start', event: true });
+      }
+    };
+
+    if (sceneEl.hasLoaded) {
+      kickoff();
+    } else {
+      sceneEl.addEventListener('renderstart', kickoff);
+    }
+
+    // Reproducir/pausar el video correspondiente cuando el target aparece/desaparece
+    document.querySelectorAll('[mindar-image-target]').forEach((entity) => {
+      const idx = entity.getAttribute('mindar-image-target').targetIndex;
+      const videoEl = document.getElementById(targetVideoIds[idx]);
+
+      entity.addEventListener('targetFound', () => {
+        videoEl.play(); // ya tiene loop="true", así que se repite mientras el tracker esté a la vista
+
+        // Métrica: tracker detectado / video arrancado
+        if (window.goatcounter && goatcounter.count) {
+          goatcounter.count({ path: 'tracker-found-' + idx, event: true });
+        }
+      });
+      entity.addEventListener('targetLost', () => {
+        videoEl.pause();
+
+        // Métrica: tracker perdido
+        if (window.goatcounter && goatcounter.count) {
+          goatcounter.count({ path: 'tracker-lost-' + idx, event: true });
+        }
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
