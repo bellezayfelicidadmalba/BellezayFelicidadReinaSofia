@@ -32,7 +32,7 @@
 <!-- ============ ESCENA AR (15 trackers / videos) ============ -->
 <div id="ar-container">
   <a-scene
-    mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no;"
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no; filterMinCF: 0.0001; filterBeta: 20; missTolerance: 8; warmupTolerance: 3;"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
@@ -40,7 +40,7 @@
   >
     <a-assets>
       <!-- Reemplazá cada src por tu video real (videos/video1.mp4 ... video15.mp4) -->
-      <video id="video0" src="https://res.cloudinary.com/dnsy0ccg8/video/upload/v1772938685/1_COMEDOR_GOURMET_REPARTO_TUPPERS_480_hxse1v.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video0" src="videos/video1.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
       <video id="video1" src="https://res.cloudinary.com/dnsy0ccg8/video/upload/v1772938685/1_COMEDOR_GOURMET_REPARTO_TUPPERS_480_hxse1v.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
       <video id="video2" src="videos/video3.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
       <video id="video3" src="videos/video4.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
@@ -61,77 +61,77 @@
 
     <!-- Target 0: cuadrado plano físico #1 -->
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-video src="#video0" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane0" src="#video0" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 1: cuadrado plano físico #2 -->
     <a-entity mindar-image-target="targetIndex: 1">
-      <a-video src="#video1" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane1" src="#video1" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 2: cuadrado plano físico #3 -->
     <a-entity mindar-image-target="targetIndex: 2">
-      <a-video src="#video2" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane2" src="#video2" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 3: cuadrado plano físico #4 -->
     <a-entity mindar-image-target="targetIndex: 3">
-      <a-video src="#video3" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane3" src="#video3" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 4: cuadrado plano físico #5 -->
     <a-entity mindar-image-target="targetIndex: 4">
-      <a-video src="#video4" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane4" src="#video4" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 5: cuadrado plano físico #6 -->
     <a-entity mindar-image-target="targetIndex: 5">
-      <a-video src="#video5" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane5" src="#video5" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 6: cuadrado plano físico #7 -->
     <a-entity mindar-image-target="targetIndex: 6">
-      <a-video src="#video6" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane6" src="#video6" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 7: cuadrado plano físico #8 -->
     <a-entity mindar-image-target="targetIndex: 7">
-      <a-video src="#video7" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane7" src="#video7" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 8: cuadrado plano físico #9 -->
     <a-entity mindar-image-target="targetIndex: 8">
-      <a-video src="#video8" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane8" src="#video8" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 9: cuadrado plano físico #10 -->
     <a-entity mindar-image-target="targetIndex: 9">
-      <a-video src="#video9" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane9" src="#video9" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 10: cuadrado plano físico #11 -->
     <a-entity mindar-image-target="targetIndex: 10">
-      <a-video src="#video10" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane10" src="#video10" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 11: cuadrado plano físico #12 -->
     <a-entity mindar-image-target="targetIndex: 11">
-      <a-video src="#video11" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane11" src="#video11" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 12: cuadrado plano físico #13 -->
     <a-entity mindar-image-target="targetIndex: 12">
-      <a-video src="#video12" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane12" src="#video12" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 13: cuadrado plano físico #14 -->
     <a-entity mindar-image-target="targetIndex: 13">
-      <a-video src="#video13" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane13" src="#video13" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 14: cuadrado plano físico #15 -->
     <a-entity mindar-image-target="targetIndex: 14">
-      <a-video src="#video14" width="1" height="0.5625" position="0 0 0" rotation="0 0 0"></a-video>
+      <a-video id="plane14" src="#video14" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
     </a-entity>
   </a-scene>
 </div>
@@ -139,6 +139,7 @@
 <script>
   // ---------- CONFIG: mapea índice de target -> id de <video> ----------
   const targetVideoIds = ['video0', 'video1', 'video2', 'video3', 'video4', 'video5', 'video6', 'video7', 'video8', 'video9', 'video10', 'video11', 'video12', 'video13', 'video14'];
+  const BASE_WIDTH = 1.2; // debe coincidir con el width base puesto en cada <a-video>
 
   const startScreen = document.getElementById('start-screen');
   const startBtn = document.getElementById('start-btn');
@@ -168,10 +169,26 @@
       sceneEl.addEventListener('renderstart', kickoff);
     }
 
-    // Reproducir/pausar el video correspondiente cuando el target aparece/desaparece
+    // Reproducir/pausar el video correspondiente cuando el target aparece/desaparece,
+    // y ajustar automáticamente la proporción del plano según la relación de aspecto real del video.
     document.querySelectorAll('[mindar-image-target]').forEach((entity) => {
       const idx = entity.getAttribute('mindar-image-target').targetIndex;
       const videoEl = document.getElementById(targetVideoIds[idx]);
+      const planeEl = document.getElementById('plane' + idx);
+
+      // Ajuste de proporción: en cuanto se conocen las dimensiones reales del video,
+      // recalculamos la altura del plano para que no se vea estirado/aplastado.
+      const fixAspect = () => {
+        if (videoEl.videoWidth && videoEl.videoHeight) {
+          const aspect = videoEl.videoWidth / videoEl.videoHeight;
+          planeEl.setAttribute('height', BASE_WIDTH / aspect);
+        }
+      };
+      if (videoEl.readyState >= 1) {
+        fixAspect();
+      } else {
+        videoEl.addEventListener('loadedmetadata', fixAspect);
+      }
 
       entity.addEventListener('targetFound', () => {
         videoEl.play(); // ya tiene loop="true", así que se repite mientras el tracker esté a la vista
