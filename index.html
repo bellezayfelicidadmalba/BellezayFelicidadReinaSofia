@@ -32,106 +32,106 @@
 <!-- ============ ESCENA AR (15 trackers / videos) ============ -->
 <div id="ar-container">
   <a-scene
-    mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no; filterMinCF: 0.0001; filterBeta: 20; missTolerance: 8; warmupTolerance: 3;"
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: false; uiScanning: no; uiLoading: no; filterMinCF: 0.0001; filterBeta: 200; missTolerance: 8; warmupTolerance: 3;"
     color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights"
     vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: true"
+    device-orientation-permission-ui="enabled: false"
   >
     <a-assets>
       <!-- Reemplazá cada src por tu video real (videos/video1.mp4 ... video15.mp4) -->
-      <video id="video0" src="videos/video1.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video1" src="https://res.cloudinary.com/dnsy0ccg8/video/upload/v1772938685/1_COMEDOR_GOURMET_REPARTO_TUPPERS_480_hxse1v.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video2" src="videos/video3.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video3" src="videos/video4.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video4" src="videos/video5.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video5" src="videos/video6.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video6" src="videos/video7.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video7" src="videos/video8.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video8" src="videos/video9.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video9" src="videos/video10.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video10" src="videos/video11.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video11" src="videos/video12.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video12" src="videos/video13.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video13" src="videos/video14.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
-      <video id="video14" src="videos/video15.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video0" src="videos/video1.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video1" src="https://res.cloudinary.com/dnsy0ccg8/video/upload/v1772938685/1_COMEDOR_GOURMET_REPARTO_TUPPERS_480_hxse1v.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video2" src="videos/video3.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video3" src="videos/video4.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video4" src="videos/video5.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video5" src="videos/video6.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video6" src="videos/video7.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video7" src="videos/video8.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video8" src="videos/video9.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video9" src="videos/video10.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video10" src="videos/video11.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video11" src="videos/video12.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video12" src="videos/video13.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video13" src="videos/video14.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      <video id="video14" src="videos/video15.mp4" preload="metadata" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
     <!-- Target 0: cuadrado plano físico #1 -->
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-video id="plane0" src="#video0" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane0" src="#video0" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 1: cuadrado plano físico #2 -->
     <a-entity mindar-image-target="targetIndex: 1">
-      <a-video id="plane1" src="#video1" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane1" src="#video1" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 2: cuadrado plano físico #3 -->
     <a-entity mindar-image-target="targetIndex: 2">
-      <a-video id="plane2" src="#video2" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane2" src="#video2" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 3: cuadrado plano físico #4 -->
     <a-entity mindar-image-target="targetIndex: 3">
-      <a-video id="plane3" src="#video3" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane3" src="#video3" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 4: cuadrado plano físico #5 -->
     <a-entity mindar-image-target="targetIndex: 4">
-      <a-video id="plane4" src="#video4" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane4" src="#video4" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 5: cuadrado plano físico #6 -->
     <a-entity mindar-image-target="targetIndex: 5">
-      <a-video id="plane5" src="#video5" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane5" src="#video5" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 6: cuadrado plano físico #7 -->
     <a-entity mindar-image-target="targetIndex: 6">
-      <a-video id="plane6" src="#video6" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane6" src="#video6" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 7: cuadrado plano físico #8 -->
     <a-entity mindar-image-target="targetIndex: 7">
-      <a-video id="plane7" src="#video7" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane7" src="#video7" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 8: cuadrado plano físico #9 -->
     <a-entity mindar-image-target="targetIndex: 8">
-      <a-video id="plane8" src="#video8" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane8" src="#video8" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 9: cuadrado plano físico #10 -->
     <a-entity mindar-image-target="targetIndex: 9">
-      <a-video id="plane9" src="#video9" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane9" src="#video9" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 10: cuadrado plano físico #11 -->
     <a-entity mindar-image-target="targetIndex: 10">
-      <a-video id="plane10" src="#video10" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane10" src="#video10" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 11: cuadrado plano físico #12 -->
     <a-entity mindar-image-target="targetIndex: 11">
-      <a-video id="plane11" src="#video11" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane11" src="#video11" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 12: cuadrado plano físico #13 -->
     <a-entity mindar-image-target="targetIndex: 12">
-      <a-video id="plane12" src="#video12" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane12" src="#video12" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 13: cuadrado plano físico #14 -->
     <a-entity mindar-image-target="targetIndex: 13">
-      <a-video id="plane13" src="#video13" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane13" src="#video13" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
 
     <!-- Target 14: cuadrado plano físico #15 -->
     <a-entity mindar-image-target="targetIndex: 14">
-      <a-video id="plane14" src="#video14" width="1.2" height="0.6749999999999999" position="0 0 0.15" rotation="0 0 0"></a-video>
+      <a-video id="plane14" src="#video14" width="1.2" height="0.6749999999999999" position="0 0 0.01" rotation="0 0 0"></a-video>
     </a-entity>
   </a-scene>
 </div>
@@ -147,7 +147,34 @@
 
   startBtn.addEventListener('click', startAR);
 
+  // iOS solo deja reproducir video con sonido si play() se llama dentro de un toque del usuario.
+  // Por eso, en el click inicial, arrancamos y pausamos cada video para "desbloquearlo".
+  function unlockVideos() {
+    targetVideoIds.forEach((id) => {
+      const v = document.getElementById(id);
+      const p = v.play();
+      if (p && p.then) {
+        p.then(() => { v.pause(); v.currentTime = 0; }).catch(() => {});
+      }
+    });
+  }
+
+  // Si el navegador igual bloquea el sonido, reproducimos sin audio antes que no mostrar nada.
+  function playVideo(v) {
+    const p = v.play();
+    if (p && p.catch) {
+      p.catch(() => {
+        v.muted = true;
+        v.play().catch(() => {});
+      });
+    }
+  }
+
+  // Métrica: cada tracker se cuenta una sola vez por visita (el tracking parpadea y duplicaría eventos)
+  const countedTargets = new Set();
+
   function startAR() {
+    unlockVideos();
     startScreen.style.display = 'none';
     arContainer.style.display = 'block';
 
@@ -191,20 +218,16 @@
       }
 
       entity.addEventListener('targetFound', () => {
-        videoEl.play(); // ya tiene loop="true", así que se repite mientras el tracker esté a la vista
+        playVideo(videoEl); // ya tiene loop="true", así que se repite mientras el tracker esté a la vista
 
-        // Métrica: tracker detectado / video arrancado
-        if (window.goatcounter && goatcounter.count) {
+        // Métrica: tracker detectado / video arrancado (una vez por visita)
+        if (!countedTargets.has(idx) && window.goatcounter && goatcounter.count) {
+          countedTargets.add(idx);
           goatcounter.count({ path: 'tracker-found-' + idx, event: true });
         }
       });
       entity.addEventListener('targetLost', () => {
         videoEl.pause();
-
-        // Métrica: tracker perdido
-        if (window.goatcounter && goatcounter.count) {
-          goatcounter.count({ path: 'tracker-lost-' + idx, event: true });
-        }
       });
     });
   }
