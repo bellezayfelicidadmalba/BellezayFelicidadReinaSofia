@@ -17,12 +17,26 @@
   html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
   #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 10; background: #000; padding: max(6vh, env(safe-area-inset-top)) 20px max(4vh, env(safe-area-inset-bottom)); box-sizing: border-box; transition: opacity .5s ease; }
   #start-screen.hide { opacity: 0; pointer-events: none; }
-  #start-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; }
-  #logo-corazon-wrap { perspective: 800px; }
-  #logo-corazon { width: min(55vw, 38vh); height: auto; display: block; }
-  #logo-corazon.spin { animation: girar 2s linear infinite; }
-  @keyframes girar { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
-  #logo-reina-sofia { width: min(32vw, 160px); height: auto; display: block; opacity: .9; }
+  #logo-corazon-wrap { perspective: 900px; margin-top: 2vh; }
+  #logo-corazon { width: min(58vw, 40vh); height: auto; display: block; transform-origin: 50% 60%; }
+  /* El corazón "juega": espera de frente, da un saltito, vuelve, gira una vuelta y se queda
+     de frente un buen rato para que se lea. Ciclo de 6 s, de frente ~80% del tiempo. */
+  #logo-corazon.jugar { animation: jugar 6s ease-in-out infinite; }
+  @keyframes jugar {
+    0%, 14%  { transform: translateY(0) rotateY(0deg) scale(1, 1); }
+    18%      { transform: translateY(0) rotateY(0deg) scale(1.04, .96); }       /* se agacha */
+    25%      { transform: translateY(-7%) rotateY(0deg) scale(.97, 1.04); }      /* salta */
+    32%      { transform: translateY(0) rotateY(0deg) scale(1.03, .97); }        /* cae */
+    36%      { transform: translateY(0) rotateY(0deg) scale(1, 1); }
+    42%      { transform: translateY(-3%) rotateY(0deg) scale(1, 1); animation-timing-function: cubic-bezier(.45, 0, .25, 1); }
+    56%      { transform: translateY(-3%) rotateY(360deg) scale(1, 1); }          /* vuelta completa */
+    62%, 100% { transform: translateY(0) rotateY(360deg) scale(1, 1); }          /* de frente, para leer */
+  }
+  @media (prefers-reduced-motion: reduce) { #logo-corazon.jugar { animation: none; } }
+  #start-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5vh; }
+  #start-footer { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; }
+  #privacy { color: rgba(255, 255, 255, .7); font-size: 12px; line-height: 1.45; text-align: center; max-width: 320px; margin: 0; }
+  #logo-reina-sofia { width: min(32vw, 150px); height: auto; display: block; opacity: .9; }
   #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #fff; color: #000; transition: opacity .4s ease; }
   #start-btn[hidden] { display: block; visibility: hidden; opacity: 0; }
   #start-status { color: #fff; margin: 0; text-align: center; padding: 0 20px; font-size: 14px; min-height: 2.6em; }
@@ -33,15 +47,18 @@
 
 <!-- ============ PANTALLA INICIAL: el visitante ya llegó acá vía QR (el QR apunta directo a esta URL) ============ -->
 <div id="start-screen">
+  <!-- Logo corazón animado (preloader) -->
+  <div id="logo-corazon-wrap">
+    <img id="logo-corazon" class="jugar" src="img/logo-corazon.png" alt="Belleza y Felicidad Fiorito" />
+  </div>
   <div id="start-main">
-    <!-- Logo corazón: gira 360° mientras carga (preloader) -->
-    <div id="logo-corazon-wrap">
-      <img id="logo-corazon" class="spin" src="img/logo-corazon.png" alt="Belleza y Felicidad Fiorito" />
-    </div>
     <button id="start-btn" hidden>Tocá para comenzar</button>
     <p id="start-status">Cargando…</p>
   </div>
-  <img id="logo-reina-sofia" src="img/logo-reina-sofia.png" alt="Museo Nacional Centro de Arte Reina Sofía" />
+  <div id="start-footer">
+    <p id="privacy">Esta experiencia no recolecta datos personales. La cámara solo se usa para reconocer las imágenes: todo se procesa en tu teléfono y nada se graba ni se envía. Únicamente contamos las visitas, de forma anónima y sin cookies.</p>
+    <img id="logo-reina-sofia" src="img/logo-reina-sofia.png" alt="Museo Nacional Centro de Arte Reina Sofía" />
+  </div>
 </div>
 
 <!-- ============ ESCENA AR (15 trackers / videos) ============ -->
@@ -160,26 +177,12 @@
   const startBtn = document.getElementById('start-btn');
   const arContainer = document.getElementById('ar-container');
 
-  const logoCorazon = document.getElementById('logo-corazon');
   const startStatus = document.getElementById('start-status');
   const sceneEl = document.querySelector('a-scene');
 
   startBtn.addEventListener('click', startAR);
 
-  // ---------- PRELOADER: el corazón gira hasta que la escena y los targets están cargados ----------
-  let wantSpin = true;
-  function setSpinning(on) {
-    wantSpin = on;
-    if (on) {
-      logoCorazon.classList.add('spin');
-    } else {
-      // termina la vuelta en curso para que no salte de golpe
-      logoCorazon.addEventListener('animationiteration', () => {
-        if (!wantSpin) logoCorazon.classList.remove('spin');
-      }, { once: true });
-    }
-  }
-
+  // ---------- PRELOADER: el corazón juega mientras cargan la escena y los targets ----------
   const sceneReady = new Promise((resolve) => {
     if (sceneEl.hasLoaded) resolve();
     else sceneEl.addEventListener('loaded', resolve, { once: true });
@@ -188,7 +191,6 @@
   const targetsReady = fetch('./targets.mind').then((r) => r.arrayBuffer()).catch(() => {});
 
   Promise.all([sceneReady, targetsReady]).then(() => {
-    setSpinning(false);
     startStatus.textContent = 'Necesitamos acceso a la cámara para la experiencia AR';
     startBtn.hidden = false;
   });
@@ -223,7 +225,6 @@
     unlockVideos();
     startBtn.hidden = true;
     startStatus.textContent = 'Iniciando cámara…';
-    setSpinning(true);
     arContainer.style.display = 'block';
 
     // La pantalla inicial se desvanece recién cuando la cámara y el tracking están listos
@@ -232,7 +233,6 @@
       setTimeout(() => { startScreen.style.display = 'none'; }, 500);
     }, { once: true });
     sceneEl.addEventListener('arError', () => {
-      setSpinning(false);
       startStatus.textContent = 'No pudimos acceder a la cámara. Revisá los permisos del navegador y recargá la página.';
     }, { once: true });
 
