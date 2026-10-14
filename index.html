@@ -15,9 +15,17 @@
 
 <style>
   html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
-  #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; background: #000; }
-  #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #fff; color: #000; }
-  #start-status { color: #fff; margin-top: 16px; text-align: center; padding: 0 20px; font-size: 14px; }
+  #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 10; background: #000; padding: max(6vh, env(safe-area-inset-top)) 20px max(4vh, env(safe-area-inset-bottom)); box-sizing: border-box; transition: opacity .5s ease; }
+  #start-screen.hide { opacity: 0; pointer-events: none; }
+  #start-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; }
+  #logo-corazon-wrap { perspective: 800px; }
+  #logo-corazon { width: min(55vw, 38vh); height: auto; display: block; }
+  #logo-corazon.spin { animation: girar 2s linear infinite; }
+  @keyframes girar { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+  #logo-reina-sofia { width: min(32vw, 160px); height: auto; display: block; opacity: .9; }
+  #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #fff; color: #000; transition: opacity .4s ease; }
+  #start-btn[hidden] { display: block; visibility: hidden; opacity: 0; }
+  #start-status { color: #fff; margin: 0; text-align: center; padding: 0 20px; font-size: 14px; min-height: 2.6em; }
   #ar-container { position: fixed; inset: 0; display: none; }
 </style>
 </head>
@@ -25,8 +33,15 @@
 
 <!-- ============ PANTALLA INICIAL: el visitante ya llegó acá vía QR (el QR apunta directo a esta URL) ============ -->
 <div id="start-screen">
-  <button id="start-btn">Tocá para comenzar</button>
-  <p id="start-status">Necesitamos acceso a la cámara para la experiencia AR</p>
+  <div id="start-main">
+    <!-- Logo corazón: gira 360° mientras carga (preloader) -->
+    <div id="logo-corazon-wrap">
+      <img id="logo-corazon" class="spin" src="img/logo-corazon.png" alt="Belleza y Felicidad Fiorito" />
+    </div>
+    <button id="start-btn" hidden>Tocá para comenzar</button>
+    <p id="start-status">Cargando…</p>
+  </div>
+  <img id="logo-reina-sofia" src="img/logo-reina-sofia.png" alt="Museo Nacional Centro de Arte Reina Sofía" />
 </div>
 
 <!-- ============ ESCENA AR (15 trackers / videos) ============ -->
@@ -145,7 +160,38 @@
   const startBtn = document.getElementById('start-btn');
   const arContainer = document.getElementById('ar-container');
 
+  const logoCorazon = document.getElementById('logo-corazon');
+  const startStatus = document.getElementById('start-status');
+  const sceneEl = document.querySelector('a-scene');
+
   startBtn.addEventListener('click', startAR);
+
+  // ---------- PRELOADER: el corazón gira hasta que la escena y los targets están cargados ----------
+  let wantSpin = true;
+  function setSpinning(on) {
+    wantSpin = on;
+    if (on) {
+      logoCorazon.classList.add('spin');
+    } else {
+      // termina la vuelta en curso para que no salte de golpe
+      logoCorazon.addEventListener('animationiteration', () => {
+        if (!wantSpin) logoCorazon.classList.remove('spin');
+      }, { once: true });
+    }
+  }
+
+  const sceneReady = new Promise((resolve) => {
+    if (sceneEl.hasLoaded) resolve();
+    else sceneEl.addEventListener('loaded', resolve, { once: true });
+  });
+  // Precarga targets.mind (queda en caché y MindAR no lo vuelve a bajar entero al arrancar)
+  const targetsReady = fetch('./targets.mind').then((r) => r.arrayBuffer()).catch(() => {});
+
+  Promise.all([sceneReady, targetsReady]).then(() => {
+    setSpinning(false);
+    startStatus.textContent = 'Necesitamos acceso a la cámara para la experiencia AR';
+    startBtn.hidden = false;
+  });
 
   // iOS solo deja reproducir video con sonido si play() se llama dentro de un toque del usuario.
   // Por eso, en el click inicial, arrancamos y pausamos cada video para "desbloquearlo".
@@ -175,10 +221,20 @@
 
   function startAR() {
     unlockVideos();
-    startScreen.style.display = 'none';
+    startBtn.hidden = true;
+    startStatus.textContent = 'Iniciando cámara…';
+    setSpinning(true);
     arContainer.style.display = 'block';
 
-    const sceneEl = document.querySelector('a-scene');
+    // La pantalla inicial se desvanece recién cuando la cámara y el tracking están listos
+    sceneEl.addEventListener('arReady', () => {
+      startScreen.classList.add('hide');
+      setTimeout(() => { startScreen.style.display = 'none'; }, 500);
+    }, { once: true });
+    sceneEl.addEventListener('arError', () => {
+      setSpinning(false);
+      startStatus.textContent = 'No pudimos acceder a la cámara. Revisá los permisos del navegador y recargá la página.';
+    }, { once: true });
 
     const kickoff = () => {
       const arSystem = sceneEl.systems['mindar-image-system'];
