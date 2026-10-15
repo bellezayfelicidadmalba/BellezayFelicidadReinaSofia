@@ -14,8 +14,8 @@
         async src="//gc.zgo.at/count.js"></script>
 
 <style>
-  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; font-family: sans-serif; }
-  #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 10; background: #000; padding: max(6vh, env(safe-area-inset-top)) 20px max(4vh, env(safe-area-inset-bottom)); box-sizing: border-box; transition: opacity .5s ease; }
+  html, body { margin: 0; height: 100%; background: #fff; overflow: hidden; font-family: sans-serif; }
+  #start-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; z-index: 10; background: #fff linear-gradient(180deg, #ffffff 0%, #fafafa 45%, #ececec 100%); color: #000; padding: max(6vh, env(safe-area-inset-top)) 20px max(4vh, env(safe-area-inset-bottom)); box-sizing: border-box; transition: opacity .5s ease; }
   #start-screen.hide { opacity: 0; pointer-events: none; }
   #logo-corazon-wrap { perspective: 900px; margin-top: 2vh; }
   #logo-corazon { width: min(58vw, 40vh); height: auto; display: block; transform-origin: 50% 60%; }
@@ -35,11 +35,11 @@
   @media (prefers-reduced-motion: reduce) { #logo-corazon.jugar { animation: none; } }
   #start-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2.5vh; }
   #start-footer { display: flex; flex-direction: column; align-items: center; gap: 2.5vh; }
-  #privacy { color: rgba(255, 255, 255, .7); font-size: 12px; line-height: 1.45; text-align: center; max-width: 320px; margin: 0; }
+  #privacy { color: rgba(0, 0, 0, .65); font-size: 12px; line-height: 1.45; text-align: center; max-width: 320px; margin: 0; }
   #logo-reina-sofia { width: min(32vw, 150px); height: auto; display: block; opacity: .9; }
-  #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #fff; color: #000; transition: opacity .4s ease; }
+  #start-btn { padding: 16px 32px; font-size: 18px; border-radius: 8px; border: none; background: #000; color: #fff; transition: opacity .4s ease; }
   #start-btn[hidden] { display: block; visibility: hidden; opacity: 0; }
-  #start-status { color: #fff; margin: 0; text-align: center; padding: 0 20px; font-size: 14px; min-height: 2.6em; }
+  #start-status { color: #000; margin: 0; text-align: center; padding: 0 20px; font-size: 14px; min-height: 2.6em; }
   #ar-container { position: fixed; inset: 0; display: none; }
 </style>
 </head>
